@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import { Box, Grid, Radio, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Box, Grid, Paper, Radio, Typography } from "@mui/material";
 
 export default function SizeRadioButton() {
   const SHOE_SIZE = ["6", "6.5", "7", "7.5", "8", "8.5", "9", " 9.5", "10"];
@@ -23,20 +22,22 @@ export default function SizeRadioButton() {
   return (
     <>
       {SHOE_SIZE.map((size) => (
-        <Grid
-          item
-          xs={2}
-          key={size}
-          sx={{
-            borderRadius: "16px",
-            background: grey[100],
-            margin: 1,
-          }}
-        >
-          <Box sx={{ display: "flex" }}>
-            <Typography variant="body1">US {size}</Typography>
-            <Radio {...controlProps(size)} color="default" />
-          </Box>
+        <Grid item xs={4} md={4} key={size}>
+          <Paper elevation={3}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography component="h2" variant="body1" sx={{ paddingTop: 1 }}>
+                US{size}
+              </Typography>
+              <Radio {...controlProps(size)} color="default" />
+            </Box>
+          </Paper>
         </Grid>
       ))}
     </>

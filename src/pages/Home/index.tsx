@@ -18,7 +18,7 @@ const Home = () => {
             maxWidth: 700,
             textAlign: "center",
             margin: "auto",
-            paddingTop: 20,
+            paddingTop: { xs: 8, md: 15 },
           }}
           component="div"
         >
@@ -28,7 +28,7 @@ const Home = () => {
           <Button
             onClick={() => navigate("/collections/shoes")}
             variant="contained"
-            sx={{ marginTop: 4 }}
+            sx={{ marginTop: 5 }}
             size="large"
           >
             Explore
