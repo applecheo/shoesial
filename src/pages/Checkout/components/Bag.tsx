@@ -45,7 +45,15 @@ const Bag = () => {
             }}
           >
             <Typography variant="body1">Nike Air Max Flyknit Racer</Typography>
-            <Typography variant="body1" sx={{ ml: 10 }}>
+            <Typography
+              variant="body1"
+              sx={{
+                pl: {
+                  xs: 0,
+                  sm: 10,
+                },
+              }}
+            >
               S$100.00
             </Typography>
           </Box>
@@ -98,7 +106,15 @@ const Bag = () => {
             }}
           >
             <Typography variant="body1">Nike Air Max Flyknit Racer</Typography>
-            <Typography variant="body1" sx={{ ml: 10 }}>
+            <Typography
+              variant="body1"
+              sx={{
+                pl: {
+                  xs: 0,
+                  sm: 10,
+                },
+              }}
+            >
               S$100.00
             </Typography>
           </Box>
@@ -125,7 +141,7 @@ const Bag = () => {
               <SelectQuantity />
             </Box>
           </Box>
-          <Box>
+          <Box sx={{ my: 2 }}>
             <FavoriteBorderOutlined
               sx={{ ml: 0.5, mr: 1.5, cursor: "pointer" }}
             />

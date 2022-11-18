@@ -10,6 +10,7 @@ const Checkout = () => {
       <Box
         sx={{
           marginY: { xs: 1.5, sm: 5 },
+          px: { xs: 0, md: 5 },
           display: "flex",
           justifyContent: "center",
           flexDirection: {
