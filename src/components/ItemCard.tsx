@@ -15,7 +15,8 @@ const ItemCard = ({ name, gender, price, images }: TItem) => {
   return (
     <Grid
       item
-      xs={4}
+      xs={12}
+      md={3}
       sx={{ minWidth: 288 }}
       onClick={() => navigate(`/collections/shoes/${name}`)}
     >

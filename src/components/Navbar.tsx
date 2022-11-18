@@ -17,7 +17,7 @@ import Typography from "@mui/material/Typography";
 import ShoppingCartBadge from "./ShoppingCartBadge";
 
 const pages = ["Collections", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Account", "Favorite", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(

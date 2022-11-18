@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./layout";
+import Checkout from "./pages/Checkout";
 import Collection from "./pages/Collections";
 import Home from "./pages/Home";
 import ItemDetail from "./pages/ItemDetail";
@@ -16,6 +17,7 @@ export default function App() {
         { index: true, element: <Home /> },
         { path: "/collections/shoes", element: <Collection /> },
         { path: "/collections/shoes/:id", element: <ItemDetail /> },
+        { path: "/checkout", element: <Checkout /> },
       ],
     },
   ]);
