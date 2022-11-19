@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 
 import { createTheme, ThemeProvider } from "@mui/material";
 import { green, yellow } from "@mui/material/colors";
 
 import App from "./App";
+import store from "./Store";
 
 import "./index.css";
 
@@ -25,8 +27,10 @@ const theme = createTheme({
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );

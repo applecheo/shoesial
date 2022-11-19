@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ShutterSpeedIcon from "@mui/icons-material/ShutterSpeed";
@@ -20,6 +21,7 @@ const pages = ["Collections", "Blog"];
 const settings = ["Account", "Favorite", "Logout"];
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -53,7 +55,7 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate("/")}
             sx={{
               mr: 4,
               display: { xs: "none", md: "flex" },
@@ -62,6 +64,7 @@ const Navbar = () => {
               letterSpacing: ".2rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             ShoeSial
@@ -110,7 +113,7 @@ const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -120,6 +123,7 @@ const Navbar = () => {
               letterSpacing: ".2rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             ShoeSial

@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useDispatch } from "react-redux";
+
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
@@ -7,6 +9,10 @@ import ProductDetailAccordion from "../../components/ProductDetailAccordion";
 import SizeRadioButton from "../../components/SizeRadioButton";
 import { items } from "../../data";
 const ItemDetail = () => {
+  const dispatch = useDispatch();
+  const cartHandler = () => {
+    console.log("add to cart");
+  };
   return (
     <>
       <Box
@@ -65,6 +71,7 @@ const ItemDetail = () => {
             <Button
               variant="contained"
               sx={{ marginBottom: 1, borderRadius: "16px" }}
+              onClick={cartHandler}
             >
               Add to Bag
             </Button>
