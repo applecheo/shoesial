@@ -1,10 +1,10 @@
 import { Container, Grid } from "@mui/material";
 
 import ItemCard from "../../components/ItemCard";
-import { items } from "../../data";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { useAppSelector } from "../../custom/hooks";
 
 const Collection = () => {
+  const items = useAppSelector((state) => state.item.allItems);
   return (
     <>
       <Container sx={{ marginY: 5 }}>
