@@ -17,16 +17,12 @@ export type TItems = {
   price: number;
 };
 
-type TViewing = TItems | null;
-
 export type TItemsInitialState = {
   allItems: TItems[];
-  viewing: TViewing;
 };
 
 const itemsInitialState: TItemsInitialState = {
   allItems: [],
-  viewing: null,
 };
 
 const itemsSlice = createSlice({
@@ -35,9 +31,6 @@ const itemsSlice = createSlice({
   reducers: {
     updateItems(state, action: PayloadAction<TItemsInitialState>) {
       state.allItems = action.payload.allItems;
-    },
-    currentViewing(state, action: PayloadAction<TItemsInitialState>) {
-      state.viewing = action.payload.viewing;
     },
   },
 });

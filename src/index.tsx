@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { green, yellow } from "@mui/material/colors";
 
 import App from "./App";
+import Loading from "./components/Loading";
 import store from "./Store";
 
 import "./index.css";
@@ -29,6 +30,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <Loading />
         <App />
       </ThemeProvider>
     </Provider>

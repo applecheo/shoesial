@@ -19,10 +19,10 @@ export const fetchItemData = () => {
     };
     try {
       const fetchedItems = await fetchData();
+
       dispatch(
         itemsActions.updateItems({
           allItems: fetchedItems,
-          viewing: null,
         })
       );
     } catch (error) {

@@ -1,9 +1,16 @@
+import { useEffect } from "react";
+
 import { Container, Grid } from "@mui/material";
 
 import ItemCard from "../../components/ItemCard";
-import { useAppSelector } from "../../custom/hooks";
+import { useAppDispatch, useAppSelector } from "../../custom/hooks";
+import { fetchItemData } from "../../Store/item-actions";
 
 const Collection = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchItemData());
+  }, [dispatch]);
   const items = useAppSelector((state) => state.item.allItems);
   return (
     <>

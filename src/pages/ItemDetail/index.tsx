@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useDispatch } from "react-redux";
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -7,12 +9,49 @@ import { yellow } from "@mui/material/colors";
 
 import ProductDetailAccordion from "../../components/ProductDetailAccordion";
 import SizeRadioButton from "../../components/SizeRadioButton";
-import { items } from "../../data";
+import { supabase } from "../../config/supabaseClient";
+
+type TItemDetails = {
+  created_at: string;
+  description: string;
+  gender: string;
+  id: number;
+  image_id: string[];
+  name: string;
+  price: number;
+};
+
 const ItemDetail = () => {
-  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [itemDetail, setItemDetail] = useState<TItemDetails>(
+    {} as TItemDetails
+  );
+
+  const fetchData = async () => {
+    const { data, error } = await supabase
+      .from("item")
+      .select("*,image_id(image1,image2,image3,image4)")
+      .eq("id", id);
+    if (error !== null) {
+      throw new Error("Could not fetch product data");
+    }
+    return data[0];
+  };
+
+  const fetchItemData = async () => {
+    const fetchedItemDetail = await fetchData();
+    fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
+    setItemDetail(fetchedItemDetail);
+  };
+
+  useEffect(() => {
+    fetchItemData();
+  }, []);
+
   const cartHandler = () => {
     console.log("add to cart");
   };
+
   return (
     <>
       <Box
@@ -31,9 +70,9 @@ const ItemDetail = () => {
       >
         <Box>
           <Grid container spacing={1}>
-            {items[4].images.map((product) => (
+            {itemDetail?.image_id?.map((product) => (
               <Grid item xs={3} sm={6} key={product}>
-                <img src={product} className="productDetail-img"></img>
+                <img src={product} className="productDetail-img" />
               </Grid>
             ))}
           </Grid>
@@ -42,13 +81,13 @@ const ItemDetail = () => {
         <Container maxWidth="xs">
           <Box>
             <Typography variant="h4" component="h4">
-              Nike Air Max Flyknit Racer
+              {itemDetail?.name}
             </Typography>
             <Typography variant="subtitle1" component="p">
-              Men's Shoes
+              {itemDetail?.gender}'s Shoes
             </Typography>
             <Typography variant="body1" component="p" sx={{ marginY: 2 }}>
-              S$245
+              S${itemDetail?.price}
             </Typography>
           </Box>
           <Box>
@@ -84,11 +123,7 @@ const ItemDetail = () => {
             </Button>
           </Box>
           <Typography variant="body1" component="p" sx={{ marginY: 3 }}>
-            Paying homage to both heritage and innovation, we've blended 2 icons
-            (old and new) to go beyond what's expected in the Nike Air Max
-            Flyknit Racer. Incredibly light and airy Flyknit is paired with
-            oh-so-comfy Air Max cushioning. Lace up and let your feet do the
-            talking.
+            {itemDetail?.description}
           </Typography>
           <ProductDetailAccordion />
         </Container>

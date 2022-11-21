@@ -3,24 +3,18 @@ import { useNavigate } from "react-router";
 
 import { Box, Grid, Paper, Typography } from "@mui/material";
 
-import { TImage } from "../Store/item-slice";
+import { TItems } from "../Store/item-slice";
 
-type TItem = {
-  id: number;
-  name: string;
-  gender: string;
-  price: number;
-  image_id: TImage;
-};
-const ItemCard = ({ name, gender, price, image_id }: TItem) => {
+const ItemCard = ({ name, gender, price, image_id, id }: TItems) => {
   const navigate = useNavigate();
+
   return (
     <Grid
       item
       xs={12}
       sm={6}
       md={3}
-      onClick={() => navigate(`/collections/shoes/${name}`)}
+      onClick={() => navigate(`/collections/shoes/${name}/${id}`)}
     >
       <Paper elevation={3}>
         <img className="card-img" src={image_id?.image1} alt={name} />
