@@ -6,8 +6,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 type TSizeProps = {
   itemSize: string;
+  uniqueID: string;
 };
-export default function SelectSize({ itemSize }: TSizeProps) {
+export default function SelectSize({ itemSize, uniqueID }: TSizeProps) {
   const [size, setSize] = React.useState(itemSize);
 
   const handleChange = (event: SelectChangeEvent) => {

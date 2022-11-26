@@ -7,8 +7,12 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 type TQuantityProps = {
   itemQuantity: string;
+  uniqueID: string;
 };
-export default function SelectQuantity({ itemQuantity }: TQuantityProps) {
+export default function SelectQuantity({
+  itemQuantity,
+  uniqueID,
+}: TQuantityProps) {
   const [quantity, setQuantity] = React.useState(itemQuantity);
 
   const handleChange = (event: SelectChangeEvent) => {

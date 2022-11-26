@@ -11,6 +11,7 @@ type TCartItem = {
   quantity: number;
   totalPrice: number;
   size: string;
+  uniqueId: string;
 };
 
 type TCartInitialState = {
@@ -41,20 +42,24 @@ const cartSlice = createSlice({
         existingItem.totalPrice = existingItem.totalPrice + existingItem.price;
       }
     },
-    // remove(state, action: PayloadAction<TCartItem>) {
-    //   const item = action.payload;
-    //   const existingItem = state.items.find(
-    //     (x: { id: number; size: string }) =>
-    //       x.id === item.id && x.size === item.size
-    //   );
-    //   if (existingItem) {
-    //     const filteredItem = state.items.filter(
-    //       (x) => x.id !== item.id && x.size !== item.size
-    //     );
-    //     state.items = [...filteredItem];
-    //     state.totalQuantity = state.totalQuantity - item.quantity;
-    //   }
-    // },
+
+    removeAll(state, action: PayloadAction<TCartItem>) {
+      const itemToDelete = action.payload;
+
+      if (itemToDelete) {
+        const filteredItem = state.items.filter(
+          (x) => x.uniqueId !== itemToDelete.uniqueId
+        );
+
+        state.items = filteredItem;
+        state.totalQuantity = state.totalQuantity - itemToDelete.quantity;
+      }
+    },
+
+    // updateSize(state,action:PayloadAction<TCartItem>){
+    //   const itemToUpdate=action.payload
+    //   if(itemToUpdate.)
+    // }
   },
 });
 

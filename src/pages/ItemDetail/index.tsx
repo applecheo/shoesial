@@ -65,6 +65,7 @@ const ItemDetail = () => {
           quantity: 0,
           totalPrice: 0,
           size: selectedValue,
+          uniqueId: `${itemDetail.id}-${selectedValue}`,
         })
       );
     } else {

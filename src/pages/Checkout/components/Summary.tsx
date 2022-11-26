@@ -1,8 +1,25 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useEffect, useState } from "react";
+
 import { Box, Button, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import { useAppSelector } from "../../../custom/hooks";
+
 const Summary = () => {
+  const [totalPrice, setTotalPrice] = useState("0.00");
+  const itemPrice = useAppSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    const totalPrice = itemPrice
+      .reduce(
+        (accumulator, currentValue) => accumulator + currentValue.price,
+        0
+      )
+      .toString();
+
+    setTotalPrice(`${totalPrice}.00`);
+  }, [itemPrice]);
   return (
     <Box>
       <Box sx={{ marginY: 0.5 }}>
@@ -18,7 +35,11 @@ const Summary = () => {
         }}
       >
         <Typography variant="body1">Subtotal</Typography>
-        <Typography variant="body1">S$100.00</Typography>
+        {totalPrice.length !== 0 ? (
+          <Typography variant="body1">S${totalPrice}</Typography>
+        ) : (
+          <Typography variant="body1">S$0.00</Typography>
+        )}
       </Box>
       <Box
         sx={{
@@ -46,7 +67,7 @@ const Summary = () => {
           Total
         </Typography>
         <Typography variant="body1" sx={{ paddingY: 2 }}>
-          S$100.00
+          S${totalPrice}
         </Typography>
       </Box>
       <Box
