@@ -1,15 +1,16 @@
-import * as React from "react";
-
+/* eslint-disable react/prop-types */
 import { Box, Grid, Paper, Radio, Typography } from "@mui/material";
 
-export default function SizeRadioButton() {
-  const SHOE_SIZE = ["6", "6.5", "7", "7.5", "8", "8.5", "9", " 9.5", "10"];
+type TSelectProps = {
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedValue: string;
+};
 
-  const [selectedValue, setSelectedValue] = React.useState("a");
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
+export default function SizeRadioButton({
+  handleChange,
+  selectedValue,
+}: TSelectProps) {
+  const SHOE_SIZE = ["9", "9.5", "10"];
 
   const controlProps = (item: string) => ({
     checked: selectedValue === item,

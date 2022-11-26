@@ -20,9 +20,13 @@ export default function CustomizedBadges() {
   const quantity = useAppSelector((state) => state.cart.totalQuantity);
   const navigate = useNavigate();
   return (
-    <IconButton aria-label="cart" sx={{ mr: 3 }}>
+    <IconButton
+      aria-label="cart"
+      sx={{ mr: 3 }}
+      onClick={() => navigate("/checkout")}
+    >
       <StyledBadge badgeContent={quantity} color="secondary">
-        <ShoppingCartIcon onClick={() => navigate("/checkout")} />
+        <ShoppingCartIcon />
       </StyledBadge>
     </IconButton>
   );

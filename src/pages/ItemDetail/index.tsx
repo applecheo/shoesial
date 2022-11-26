@@ -10,6 +10,8 @@ import { yellow } from "@mui/material/colors";
 import ProductDetailAccordion from "../../components/ProductDetailAccordion";
 import SizeRadioButton from "../../components/SizeRadioButton";
 import { supabase } from "../../config/supabaseClient";
+import { useAppDispatch } from "../../custom/hooks";
+import { cartActions } from "../../Store/cart-slice";
 
 type TItemDetails = {
   created_at: string;
@@ -23,9 +25,15 @@ type TItemDetails = {
 
 const ItemDetail = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const [itemDetail, setItemDetail] = useState<TItemDetails>(
     {} as TItemDetails
   );
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value);
+  };
 
   const fetchData = async () => {
     const { data, error } = await supabase
@@ -49,7 +57,19 @@ const ItemDetail = () => {
   }, []);
 
   const cartHandler = () => {
-    console.log("add to cart");
+    if (selectedValue) {
+      console.log("hello");
+      dispatch(
+        cartActions.add({
+          ...itemDetail,
+          quantity: 0,
+          totalPrice: 0,
+          size: selectedValue,
+        })
+      );
+    } else {
+      console.log("nope");
+    }
   };
 
   return (
@@ -96,7 +116,10 @@ const ItemDetail = () => {
               <Typography>Size Guide</Typography>
             </Box>
             <Grid container spacing={1} sx={{ marginTop: 1 }}>
-              <SizeRadioButton />
+              <SizeRadioButton
+                selectedValue={selectedValue}
+                handleChange={handleChange}
+              />
             </Grid>
           </Box>
           <Box

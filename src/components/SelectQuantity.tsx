@@ -5,8 +5,11 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function SelectSize() {
-  const [quantity, setQuantity] = React.useState("");
+type TQuantityProps = {
+  itemQuantity: string;
+};
+export default function SelectQuantity({ itemQuantity }: TQuantityProps) {
+  const [quantity, setQuantity] = React.useState(itemQuantity);
 
   const handleChange = (event: SelectChangeEvent) => {
     setQuantity(event.target.value);
