@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Box, Grid, Paper, Radio, Typography } from "@mui/material";
 
+import { HashMap } from "../pages/ItemDetail";
+
 type TSelectProps = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedValue: string;
+  sizeAvailable: HashMap;
 };
 
 export default function SizeRadioButton({
   handleChange,
   selectedValue,
+  sizeAvailable,
 }: TSelectProps) {
-  const SHOE_SIZE = ["9", "9.5", "10"];
+  const SHOE_SIZE = Object.keys(sizeAvailable);
 
   const controlProps = (item: string) => ({
     checked: selectedValue === item,
@@ -34,7 +38,7 @@ export default function SizeRadioButton({
               }}
             >
               <Typography component="h2" variant="body1" sx={{ paddingTop: 1 }}>
-                US{size}
+                {size}
               </Typography>
               <Radio {...controlProps(size)} color="default" />
             </Box>

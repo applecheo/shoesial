@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useEffect, useState } from "react";
+
 import { DeleteOutlined, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -6,11 +8,39 @@ import { grey } from "@mui/material/colors";
 import SelectQuantity from "../../../components/SelectQuantity";
 import SelectSize from "../../../components/SelectSize";
 import { useAppDispatch, useAppSelector } from "../../../custom/hooks";
+import { fetchItemSize } from "../../../service";
 import { cartActions } from "../../../Store/cart-slice";
 
+export type TSizeAvailable = {
+  created_at: string;
+  id: number;
+  isSold: boolean;
+  item_id: {
+    created_at: string;
+    description: string;
+    gender: string;
+    id: number;
+    image_id: number;
+    name: string;
+    price: number;
+  };
+  size: string;
+};
+
 const Bag = () => {
+  const [sizeAvailable, setSizeAvailable] = useState<TSizeAvailable[]>([]);
   const cartItems = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
+
+  const fetchSize = async () => {
+    const id = cartItems.map((item) => item.id.toString());
+    const data = await fetchItemSize(id);
+    setSizeAvailable(data);
+  };
+
+  useEffect(() => {
+    fetchSize();
+  }, []);
 
   const deleteHandler = (id: number, size: string) => {
     const itemToDelete = cartItems.find(
@@ -18,6 +48,7 @@ const Bag = () => {
     );
     if (itemToDelete) dispatch(cartActions.removeAll(itemToDelete));
   };
+
   return (
     <Box sx={{ mr: { xs: 0, sm: 5 } }} component="div">
       <Typography
@@ -93,6 +124,7 @@ const Bag = () => {
                   <SelectSize
                     itemSize={itemDetail?.size}
                     uniqueID={itemDetail?.uniqueId}
+                    sizeAvailable={sizeAvailable}
                   />
                 </Box>
 
@@ -106,6 +138,7 @@ const Bag = () => {
                   <SelectQuantity
                     itemQuantity={itemDetail?.quantity.toString()}
                     uniqueID={itemDetail?.uniqueId}
+                    sizeAvailable={sizeAvailable}
                   />
                 </Box>
               </Box>

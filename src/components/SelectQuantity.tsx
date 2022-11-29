@@ -8,11 +8,9 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 type TQuantityProps = {
   itemQuantity: string;
   uniqueID: string;
+  sizeAvailable: any;
 };
-export default function SelectQuantity({
-  itemQuantity,
-  uniqueID,
-}: TQuantityProps) {
+export default function SelectQuantity({ itemQuantity }: TQuantityProps) {
   const [quantity, setQuantity] = React.useState(itemQuantity);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -28,9 +26,17 @@ export default function SelectQuantity({
           displayEmpty
           autoWidth
           inputProps={{ "aria-label": "Without label" }}
-          sx={{ height: 20, color: grey[600] }}
+          sx={{
+            height: 20,
+            color: grey[600],
+            fontSize: 12,
+            fontWeight: "bold",
+          }}
         >
-          <MenuItem value={1} sx={{ color: grey[600] }}>
+          <MenuItem
+            value={1}
+            sx={{ color: grey[600], fontSize: 12, fontWeight: "bold" }}
+          >
             1
           </MenuItem>
           <MenuItem value={2} sx={{ color: grey[600] }}>

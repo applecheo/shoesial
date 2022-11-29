@@ -9,9 +9,13 @@ import { yellow } from "@mui/material/colors";
 
 import ProductDetailAccordion from "../../components/ProductDetailAccordion";
 import SizeRadioButton from "../../components/SizeRadioButton";
-import { supabase } from "../../config/supabaseClient";
 import { useAppDispatch } from "../../custom/hooks";
+import { fetchItemDetail, fetchItemSize } from "../../service";
 import { cartActions } from "../../Store/cart-slice";
+
+export type HashMap = {
+  [key: string]: number;
+};
 
 type TItemDetails = {
   created_at: string;
@@ -30,30 +34,41 @@ const ItemDetail = () => {
     {} as TItemDetails
   );
   const [selectedValue, setSelectedValue] = useState("");
+  const [sizeAvailable, setSizeAvailable] = useState<HashMap>({} as HashMap);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
   };
 
-  const fetchData = async () => {
-    const { data, error } = await supabase
-      .from("item")
-      .select("*,image_id(image1,image2,image3,image4)")
-      .eq("id", id);
-    if (error !== null) {
-      throw new Error("Could not fetch product data");
+  const fetchItemData = async () => {
+    if (id) {
+      const fetchedItemDetail = await fetchItemDetail(id);
+      fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
+      setItemDetail(fetchedItemDetail);
     }
-    return data[0];
   };
 
-  const fetchItemData = async () => {
-    const fetchedItemDetail = await fetchData();
-    fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
-    setItemDetail(fetchedItemDetail);
+  const fetchSizeData = async () => {
+    if (id) {
+      const fetchedSizeDetail = await fetchItemSize([id]);
+
+      const size = fetchedSizeDetail.map((product) => product.size);
+
+      const sizeMap: HashMap = {};
+      for (const i of size) {
+        if (!sizeMap[i]) {
+          sizeMap[i] = 1;
+        } else {
+          sizeMap[i]++;
+        }
+      }
+      setSizeAvailable(sizeMap);
+    }
   };
 
   useEffect(() => {
     fetchItemData();
+    fetchSizeData();
   }, []);
 
   const cartHandler = () => {
@@ -120,6 +135,7 @@ const ItemDetail = () => {
               <SizeRadioButton
                 selectedValue={selectedValue}
                 handleChange={handleChange}
+                sizeAvailable={sizeAvailable}
               />
             </Grid>
           </Box>
