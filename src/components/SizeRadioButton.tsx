@@ -6,15 +6,15 @@ import { HashMap } from "../pages/ItemDetail";
 type TSelectProps = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selectedValue: string;
-  sizeAvailable: HashMap;
+  displaySize: HashMap;
 };
 
 export default function SizeRadioButton({
   handleChange,
   selectedValue,
-  sizeAvailable,
+  displaySize,
 }: TSelectProps) {
-  const SHOE_SIZE = Object.keys(sizeAvailable);
+  const SHOE_SIZE = Object.keys(displaySize);
 
   const controlProps = (item: string) => ({
     checked: selectedValue === item,

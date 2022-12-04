@@ -34,7 +34,7 @@ const ItemDetail = () => {
     {} as TItemDetails
   );
   const [selectedValue, setSelectedValue] = useState("");
-  const [sizeAvailable, setSizeAvailable] = useState<HashMap>({} as HashMap);
+  const [displaySize, setDisplaySize] = useState<HashMap>({} as HashMap);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -62,7 +62,7 @@ const ItemDetail = () => {
           sizeMap[i]++;
         }
       }
-      setSizeAvailable(sizeMap);
+      setDisplaySize(sizeMap);
     }
   };
 
@@ -135,7 +135,7 @@ const ItemDetail = () => {
               <SizeRadioButton
                 selectedValue={selectedValue}
                 handleChange={handleChange}
-                sizeAvailable={sizeAvailable}
+                displaySize={displaySize}
               />
             </Grid>
           </Box>

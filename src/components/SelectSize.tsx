@@ -57,7 +57,7 @@ export default function SelectSize({
             fontSize: 12,
             fontWeight: "bold",
           }}
-          defaultValue={""}
+          value={size}
         >
           {SHOE_SIZE.map((size) => (
             <MenuItem

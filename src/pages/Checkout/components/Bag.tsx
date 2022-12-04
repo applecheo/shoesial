@@ -113,35 +113,37 @@ const Bag = () => {
                 Black/White
               </Typography>
 
-              <Box sx={{ display: "flex", my: 1 }} component="div">
-                <Box sx={{ display: "flex", mr: 1 }} component="div">
-                  <Typography
-                    variant="body1"
-                    sx={{ color: grey[600], mr: 0.5 }}
-                  >
-                    Size
-                  </Typography>
-                  <SelectSize
-                    itemSize={itemDetail?.size}
-                    uniqueID={itemDetail?.uniqueId}
-                    sizeAvailable={sizeAvailable}
-                  />
-                </Box>
+              {sizeAvailable.length !== 0 && (
+                <Box sx={{ display: "flex", my: 1 }} component="div">
+                  <Box sx={{ display: "flex", mr: 1 }} component="div">
+                    <Typography
+                      variant="body1"
+                      sx={{ color: grey[600], mr: 0.5 }}
+                    >
+                      Size
+                    </Typography>
+                    <SelectSize
+                      itemSize={itemDetail?.size}
+                      uniqueID={itemDetail?.uniqueId}
+                      sizeAvailable={sizeAvailable}
+                    />
+                  </Box>
 
-                <Box sx={{ display: "flex" }} component="div">
-                  <Typography
-                    variant="body1"
-                    sx={{ color: grey[600], mr: 0.5 }}
-                  >
-                    Quantity
-                  </Typography>
-                  <SelectQuantity
-                    itemQuantity={itemDetail?.quantity.toString()}
-                    uniqueID={itemDetail?.uniqueId}
-                    sizeAvailable={sizeAvailable}
-                  />
+                  <Box sx={{ display: "flex" }} component="div">
+                    <Typography
+                      variant="body1"
+                      sx={{ color: grey[600], mr: 0.5 }}
+                    >
+                      Quantity
+                    </Typography>
+                    <SelectQuantity
+                      itemQuantity={itemDetail?.quantity.toString()}
+                      uniqueID={itemDetail?.uniqueId}
+                      sizeAvailable={sizeAvailable}
+                    />
+                  </Box>
                 </Box>
-              </Box>
+              )}
               <Box sx={{ my: 2 }} component="div">
                 <FavoriteBorderOutlined
                   sx={{ ml: 0.5, mr: 1.5, cursor: "pointer" }}
