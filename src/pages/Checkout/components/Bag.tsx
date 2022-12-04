@@ -85,25 +85,20 @@ const Bag = () => {
               alt={itemDetail?.name}
               className="checkout-img"
             />
-            <Box sx={{ ml: 3 }} component="div">
+            <Box sx={{ ml: 3, minWidth: { xs: 0, sm: 300 } }} component="div">
               <Box
                 sx={{
                   display: "flex",
+                  flexDirection: {
+                    xs: "column",
+                    sm: "row",
+                  },
+                  justifyContent: "space-between",
                 }}
                 component="div"
               >
                 <Typography variant="body1">{itemDetail?.name}</Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    pl: {
-                      xs: 0,
-                      sm: 10,
-                    },
-                  }}
-                >
-                  S${itemDetail?.price}
-                </Typography>
+                <Typography variant="body1">S${itemDetail?.price}</Typography>
               </Box>
 
               <Typography variant="body1" sx={{ color: grey[600], mt: 1 }}>
@@ -114,7 +109,17 @@ const Bag = () => {
               </Typography>
 
               {sizeAvailable.length !== 0 && (
-                <Box sx={{ display: "flex", my: 1 }} component="div">
+                <Box
+                  sx={{
+                    display: "flex",
+                    my: 1,
+                    flexDirection: {
+                      xs: "column",
+                      sm: "row",
+                    },
+                  }}
+                  component="div"
+                >
                   <Box sx={{ display: "flex", mr: 1 }} component="div">
                     <Typography
                       variant="body1"
@@ -129,7 +134,12 @@ const Bag = () => {
                     />
                   </Box>
 
-                  <Box sx={{ display: "flex" }} component="div">
+                  <Box
+                    sx={{
+                      display: "flex",
+                    }}
+                    component="div"
+                  >
                     <Typography
                       variant="body1"
                       sx={{ color: grey[600], mr: 0.5 }}
