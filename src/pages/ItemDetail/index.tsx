@@ -42,13 +42,11 @@ const ItemDetail = () => {
   };
 
   const fetchItemData = async () => {
-    // dispatch(uiActions.loading());
     if (id) {
       try {
         const fetchedItemDetail = await fetchItemDetail(id);
         fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
         setItemDetail(fetchedItemDetail);
-        // dispatch(uiActions.loading());
       } catch (error) {
         console.log(error); //notification
       }
@@ -106,84 +104,86 @@ const ItemDetail = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: {
-            xs: "column",
-            md: "row",
-          },
-          marginX: {
-            sm: 0,
-            md: 10,
-          },
-          marginY: { xs: 2, md: 8 },
-        }}
-      >
-        <Box>
-          <Grid container spacing={1}>
-            {itemDetail?.image_id?.map((product) => (
-              <Grid item xs={3} sm={6} key={product}>
-                <img src={product} className="productDetail-img" />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <Container maxWidth="xs">
+      {itemDetail?.id !== undefined && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: {
+              xs: "column",
+              md: "row",
+            },
+            marginX: {
+              sm: 0,
+              md: 10,
+            },
+            marginY: { xs: 2, md: 8 },
+          }}
+        >
           <Box>
-            <Typography variant="h4" component="h4">
-              {itemDetail?.name}
-            </Typography>
-            <Typography variant="subtitle1" component="p">
-              {itemDetail?.gender}'s Shoes
-            </Typography>
-            <Typography variant="body1" component="p" sx={{ marginY: 2 }}>
-              S${itemDetail?.price}
-            </Typography>
-          </Box>
-          <Box>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography>Select Size</Typography>
-              <Typography>Size Guide</Typography>
-            </Box>
-            <Grid container spacing={1} sx={{ marginTop: 1 }}>
-              <SizeRadioButton
-                selectedValue={selectedValue}
-                handleChange={handleChange}
-                displaySize={displaySize}
-              />
+            <Grid container spacing={1}>
+              {itemDetail?.image_id?.map((product) => (
+                <Grid item xs={3} sm={6} key={product}>
+                  <img src={product} className="productDetail-img" />
+                </Grid>
+              ))}
             </Grid>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              marginY: 3,
-            }}
-          >
-            <Button
-              variant="contained"
-              sx={{ marginBottom: 1, borderRadius: "16px" }}
-              onClick={cartHandler}
+
+          <Container maxWidth="xs">
+            <Box>
+              <Typography variant="h4" component="h4">
+                {itemDetail?.name}
+              </Typography>
+              <Typography variant="subtitle1" component="p">
+                {itemDetail?.gender}'s Shoes
+              </Typography>
+              <Typography variant="body1" component="p" sx={{ marginY: 2 }}>
+                S${itemDetail?.price}
+              </Typography>
+            </Box>
+            <Box>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography>Select Size</Typography>
+                <Typography>Size Guide</Typography>
+              </Box>
+              <Grid container spacing={1} sx={{ marginTop: 1 }}>
+                <SizeRadioButton
+                  selectedValue={selectedValue}
+                  handleChange={handleChange}
+                  displaySize={displaySize}
+                />
+              </Grid>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                marginY: 3,
+              }}
             >
-              Add to Bag
-            </Button>
-            <Button
-              variant="contained"
-              sx={{ borderRadius: "16px", background: "white" }}
-            >
-              Favorite
-              <Favorite sx={{ color: yellow }} />
-            </Button>
-          </Box>
-          <Typography variant="body1" component="p" sx={{ marginY: 3 }}>
-            {itemDetail?.description}
-          </Typography>
-          <ProductDetailAccordion />
-        </Container>
-      </Box>
+              <Button
+                variant="contained"
+                sx={{ marginBottom: 1, borderRadius: "16px" }}
+                onClick={cartHandler}
+              >
+                Add to Bag
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: "16px", background: "white" }}
+              >
+                Favorite
+                <Favorite sx={{ color: yellow }} />
+              </Button>
+            </Box>
+            <Typography variant="body1" component="p" sx={{ marginY: 3 }}>
+              {itemDetail?.description}
+            </Typography>
+            <ProductDetailAccordion />
+          </Container>
+        </Box>
+      )}
     </>
   );
 };
