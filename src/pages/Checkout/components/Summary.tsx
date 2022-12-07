@@ -11,11 +11,9 @@ const Summary = () => {
   const itemPrice = useAppSelector((state) => state.cart.items);
 
   useEffect(() => {
-    const totalPrice = itemPrice
-      .reduce(
-        (accumulator, currentValue) => accumulator + currentValue.price,
-        0
-      )
+    const summaryTotal = itemPrice.map((x) => x.price * x.quantity);
+    const totalPrice = summaryTotal
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
       .toString();
 
     setTotalPrice(`${totalPrice}.00`);

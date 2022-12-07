@@ -1,5 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type TUpdateSize = {
+  uniqueID: string;
+  updatedValue: string;
+};
+type TUpdateQuantity = {
+  uniqueID: string;
+  updatedValue: string;
+};
+
 type TCartItem = {
   created_at: string;
   description: string;
@@ -56,10 +65,59 @@ const cartSlice = createSlice({
       }
     },
 
-    // updateSize(state,action:PayloadAction<TCartItem>){
-    //   const itemToUpdate=action.payload
-    //   if(itemToUpdate.)
-    // }
+    updateQuantity(state, action: PayloadAction<TUpdateQuantity>) {
+      const itemToUpdateDetail = action.payload;
+      const updateTotalQuantity = (
+        initialQuantity: number,
+        updatedQuantity: number
+      ) => {
+        if (initialQuantity < updatedQuantity) {
+          return (state.totalQuantity += Math.abs(
+            updatedQuantity - initialQuantity
+          ));
+        } else if (initialQuantity > updatedQuantity) {
+          return (state.totalQuantity -= Math.abs(
+            initialQuantity - updatedQuantity
+          ));
+        } else {
+          return (state.totalQuantity += 0);
+        }
+      };
+      if (itemToUpdateDetail) {
+        const itemToUpdate = state.items.find(
+          (x) => x.uniqueId === itemToUpdateDetail.uniqueID
+        );
+        if (itemToUpdate) {
+          const updatedQuantity = parseInt(itemToUpdateDetail.updatedValue);
+          const initialQuantity = itemToUpdate.quantity;
+          updateTotalQuantity(initialQuantity, updatedQuantity);
+
+          itemToUpdate.quantity = parseInt(itemToUpdateDetail.updatedValue);
+
+          const updatedPrice =
+            parseInt(itemToUpdateDetail.updatedValue) * itemToUpdate.price;
+          itemToUpdate.totalPrice = updatedPrice;
+
+          state.items = [...state.items];
+        }
+      }
+    },
+    updateSize(state, action: PayloadAction<TUpdateSize>) {
+      const itemToUpdateDetail = action.payload;
+      if (itemToUpdateDetail) {
+        const itemToUpdate = state.items.find(
+          (x) => x.uniqueId === itemToUpdateDetail.uniqueID
+        );
+        if (itemToUpdate) {
+          itemToUpdate.size = itemToUpdateDetail.updatedValue;
+          const [productID, , id] = itemToUpdate.uniqueId.split("_");
+          itemToUpdate.uniqueId = productID.concat(
+            `_${itemToUpdateDetail.updatedValue}_${id}`
+          );
+          state.items = [...state.items];
+        }
+      }
+    },
   },
 });
 

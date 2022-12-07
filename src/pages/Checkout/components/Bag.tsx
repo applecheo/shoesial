@@ -71,7 +71,7 @@ const Bag = () => {
       {cartItems.length !== 0 ? (
         cartItems.map((itemDetail) => (
           <Box
-            key={`${itemDetail?.id}-${itemDetail?.size}`}
+            key={`${itemDetail.uniqueId}`}
             sx={{
               display: "flex",
               borderBottom: 1,

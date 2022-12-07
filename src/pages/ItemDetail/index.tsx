@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import { Favorite } from "@mui/icons-material";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
+import { v4 as uuidv4 } from "uuid";
 
 import ProductDetailAccordion from "../../components/ProductDetailAccordion";
 import SizeRadioButton from "../../components/SizeRadioButton";
@@ -80,7 +80,7 @@ const ItemDetail = () => {
           quantity: 0,
           totalPrice: 0,
           size: selectedValue,
-          uniqueId: `${itemDetail.id}-${selectedValue}`,
+          uniqueId: `${itemDetail.id}_${selectedValue}_${uuidv4()}`,
         })
       );
     } else {
