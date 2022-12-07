@@ -1,13 +1,16 @@
 import { supabase } from "../config/supabaseClient";
 import { itemsActions, TItemsInitialState } from "./item-slice";
+import { uiActions } from "./ui-slice";
 
 export const fetchItemData = () => {
   return async (
     dispatch: (arg0: {
-      payload: TItemsInitialState;
-      type: "items/updateItems";
+      payload: TItemsInitialState | undefined;
+      type: "items/updateItems" | "ui/loading";
     }) => void
   ) => {
+    dispatch(uiActions.loading());
+
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("item")
@@ -28,5 +31,6 @@ export const fetchItemData = () => {
     } catch (error) {
       console.log(error);
     }
+    dispatch(uiActions.loading());
   };
 };

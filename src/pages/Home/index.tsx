@@ -5,6 +5,9 @@ import Box from "@mui/material/Box";
 
 const Home = () => {
   const navigate = useNavigate();
+  const navigateHandler = () => {
+    navigate("/collections/shoes");
+  };
   return (
     <>
       <Box component="div" sx={{ maxWidth: screen }}>
@@ -26,7 +29,7 @@ const Home = () => {
             DELVE INTO SNEAKERS THAT WILL BE FOLLOWED
           </Typography>
           <Button
-            onClick={() => navigate("/collections/shoes")}
+            onClick={navigateHandler}
             variant="contained"
             sx={{ marginTop: 5 }}
             size="large"

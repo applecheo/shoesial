@@ -35,12 +35,14 @@ export default function SelectQuantity({
     );
   };
 
-  const test = sizeAvailable.filter(
+  const products = sizeAvailable.filter(
     (x: { item_id: { id: number } }) => x.item_id.id == parseInt(id)
   );
-  const sizeAvail = test.map((product: { size: string }) => product.size);
+  const sizeQuantity = products.map(
+    (product: { size: string }) => product.size
+  );
   const sizeMap: HashMap = {};
-  for (const i of sizeAvail) {
+  for (const i of sizeQuantity) {
     if (!sizeMap[i]) {
       sizeMap[i] = 1;
     } else {

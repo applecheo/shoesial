@@ -12,6 +12,7 @@ import SizeRadioButton from "../../components/SizeRadioButton";
 import { useAppDispatch } from "../../custom/hooks";
 import { fetchItemDetail, fetchItemSize } from "../../service";
 import { cartActions } from "../../Store/cart-slice";
+import { uiActions } from "../../Store/ui-slice";
 
 export type HashMap = {
   [key: string]: number;
@@ -41,34 +42,49 @@ const ItemDetail = () => {
   };
 
   const fetchItemData = async () => {
+    // dispatch(uiActions.loading());
     if (id) {
-      const fetchedItemDetail = await fetchItemDetail(id);
-      fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
-      setItemDetail(fetchedItemDetail);
+      try {
+        const fetchedItemDetail = await fetchItemDetail(id);
+        fetchedItemDetail.image_id = Object.values(fetchedItemDetail?.image_id);
+        setItemDetail(fetchedItemDetail);
+        // dispatch(uiActions.loading());
+      } catch (error) {
+        console.log(error); //notification
+      }
     }
   };
 
   const fetchSizeData = async () => {
     if (id) {
-      const fetchedSizeDetail = await fetchItemSize([id]);
+      try {
+        const fetchedSizeDetail = await fetchItemSize([id]);
 
-      const size = fetchedSizeDetail.map((product) => product.size);
+        const size = fetchedSizeDetail.map((product) => product.size);
 
-      const sizeMap: HashMap = {};
-      for (const i of size) {
-        if (!sizeMap[i]) {
-          sizeMap[i] = 1;
-        } else {
-          sizeMap[i]++;
+        const sizeMap: HashMap = {};
+        for (const i of size) {
+          if (!sizeMap[i]) {
+            sizeMap[i] = 1;
+          } else {
+            sizeMap[i]++;
+          }
         }
+        setDisplaySize(sizeMap);
+      } catch (error) {
+        console.log(error); //notification error
       }
-      setDisplaySize(sizeMap);
     }
   };
 
   useEffect(() => {
-    fetchItemData();
-    fetchSizeData();
+    const fetchData = async () => {
+      dispatch(uiActions.loading());
+      fetchItemData();
+      await fetchSizeData();
+      dispatch(uiActions.loading());
+    };
+    fetchData();
   }, []);
 
   const cartHandler = () => {
