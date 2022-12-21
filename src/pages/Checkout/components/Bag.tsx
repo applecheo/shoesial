@@ -32,14 +32,14 @@ const Bag = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
 
-  const fetchSize = async () => {
+  const fetchProducts = async () => {
     const id = cartItems.map((item) => item.id.toString());
     const data = await fetchItemSize(id);
     setSizeAvailable(data);
   };
 
   useEffect(() => {
-    fetchSize();
+    fetchProducts();
   }, []);
 
   const deleteHandler = (id: number, size: string) => {

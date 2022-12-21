@@ -22,7 +22,7 @@ export default function SelectQuantity({
 }: TQuantityProps) {
   const [quantity, setQuantity] = React.useState(itemQuantity);
   const dispatch = useAppDispatch();
-  const [id] = uniqueID.split("_");
+  const [id, sizing] = uniqueID.split("_");
 
   const handleChange = (e: SelectChangeEvent, uniqueID: string) => {
     const updatedValue = e.target.value;
@@ -36,7 +36,8 @@ export default function SelectQuantity({
   };
 
   const products = sizeAvailable.filter(
-    (x: { item_id: { id: number } }) => x.item_id.id == parseInt(id)
+    (x: { item_id: { id: number }; size: string }) =>
+      x.item_id.id == parseInt(id) && x.size === sizing
   );
   const sizeQuantity = products.map(
     (product: { size: string }) => product.size
@@ -50,9 +51,9 @@ export default function SelectQuantity({
     }
   }
   const QUANTITY_AVAIL = Object.values(sizeMap);
-  const listQuantity = [];
+  const listQuantity: number[] = [];
 
-  for (let i = 1; i <= QUANTITY_AVAIL.length; i++) {
+  for (let i = 1; i <= QUANTITY_AVAIL[0]; i++) {
     listQuantity.push(i);
   }
   return (
